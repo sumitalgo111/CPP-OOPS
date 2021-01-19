@@ -1,22 +1,25 @@
-#include<iostream> 
-using namespace std; 
+// exception example
+#include <iostream>       // std::cerr
+#include <typeinfo>       // operator typeid
+#include <exception>      // std::exception
 
-class Base {}; 
-class Derived: public Base {}; 
-int main() 
-{ 
-Derived d; 
-// some other stuff 
-try { 
-	// Some monitored code 
-	throw d; 
-} 
-catch(Base b) { 
-		cout<<"Caught Base Exception"; 
-} 
-catch(Derived d) { //This catch block is NEVER executed 
-		cout<<"Caught Derived Exception"; 
-} 
-getchar(); 
-return 0; 
-} 
+class Polymorphic {virtual void member(){}};
+
+int main () {
+  try
+  {
+    Polymorphic * pb = 0;
+    
+    int* a = new int[10000000000];//throws std::bad_alloc
+    typeid(*pb);  // throws a bad_typeid exception
+  }
+  catch (std::exception& e)
+  {
+    std::cout << "exception caught: " << e.what() << '\n';
+  }
+  catch(...)
+  {
+      std::cout<<"Exception Generic";
+  }
+  return 0;
+}

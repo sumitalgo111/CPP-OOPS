@@ -60,7 +60,7 @@ class Employee
         strcpy(name, emp.name);
     }
 
-    Employee operator= (Employee& emp)
+    Employee& operator= (Employee& emp)
     {
         cout<<"Assignment operator called"<<endl;
         setName(emp.name);
